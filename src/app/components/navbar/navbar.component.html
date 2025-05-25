@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav 
+<nav
   [ngClass]="{
     'bg-white shadow-md': isScrolled,
     'bg-transparent': !isScrolled
@@ -17,7 +17,7 @@
   <div class="hidden md:flex items-center space-x-6 flex-1 ml-8">
 
     <!-- Category Dropdown -->
-    <select 
+    <select
       [(ngModel)]="selectedCategory"
       class="w-1/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
     >
@@ -27,15 +27,15 @@
 
     <!-- Search Bar -->
     <div class="relative flex-1">
-      <input 
+      <input
         [(ngModel)]="searchQuery"
         type="text"
         placeholder="Search products..."
         class="w-full px-4 py-2 border border-gray-300 rounded-md pr-10 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
         (keydown.enter)="onSearch()"
       />
-      <span 
-        class="material-icons absolute right-3 top-2.5 text-gray-500 cursor-pointer" 
+      <span
+        class="material-icons absolute right-3 top-2.5 text-gray-500 cursor-pointer"
         (click)="onSearch()"
       >
         search
@@ -46,16 +46,20 @@
     <div class="flex items-center space-x-6 text-sm font-medium text-gray-700">
 
       <!-- Cart -->
-      <a routerLink="/cart" class="relative group">
-        <span class="material-icons group-hover:text-violet-600">shopping_cart</span>
-        <span class="block text-center group-hover:text-violet-600 transition">Cart</span>
-        <span 
-          *ngIf="(cartItemCount$ | async) as count" 
-          class="absolute -top-1 -right-2 bg-violet-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center"
-        >
-          {{ count }}
-        </span>
-      </a>
+      <!-- Cart -->
+<a class="relative group cursor-pointer" (click)="openCartSidebar()">
+  <span class="material-icons group-hover:text-violet-600">shopping_cart</span>
+  <span class="block text-center group-hover:text-violet-600 transition">Cart</span>
+  <span
+    *ngIf="(cartItemCount$ | async) as count"
+    class="absolute -top-1 -right-2 bg-violet-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center">
+    {{ count }}
+  </span>
+</a>
+
+<app-cart [isOpen]="isCartSidebarOpen"
+  (close)="closeCartSidebar()"></app-cart>
+
 
       <!-- Wishlist -->
       <a routerLink="/wishlist" class="group">
@@ -86,7 +90,7 @@
   <!-- Mobile -->
   <div class="flex md:hidden items-center w-full space-x-2 mt-2">
     <div class="flex items-center bg-gray-100 px-3 py-2 rounded-md w-full">
-      <input 
+      <input
         [(ngModel)]="searchQuery"
         type="text"
         placeholder="Search..."
@@ -102,8 +106,8 @@
 <div class="fixed bottom-0 left-0 right-0 bg-white shadow-md flex justify-around py-3 md:hidden z-50 border-t border-gray-200">
   <a routerLink="/cart" class="relative text-gray-600 hover:text-violet-600">
     <span class="material-icons">shopping_cart</span>
-    <span 
-      *ngIf="(cartItemCount$ | async) as count" 
+    <span
+      *ngIf="(cartItemCount$ | async) as count"
       class="absolute -top-1 -right-2 bg-violet-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center"
     >
       {{ count }}
