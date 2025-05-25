@@ -13,7 +13,7 @@ import { EditProfileComponent } from './components/profile/edit-profile/edit-pro
 import { HomeComponent } from './pages/home/home.component';
 
 const routes: Route[] = [
-  { path: 'products', component: ProductListComponent },
+  { path: 'shopping', component: ProductListComponent },
   { path: 'cart', component: CartComponent},
   { path: 'product/:id', component: ProductDetailComponent },
   { path: 'results', component: ResultsComponent },
@@ -21,7 +21,7 @@ const routes: Route[] = [
   { path: 'profile', component: ProfileComponent },
   { path: 'profile/edit', component: EditProfileComponent },
   {path:'home',component:HomeComponent},
-  { path: '**', redirectTo:'products', pathMatch: 'full'}
+  { path: '**', redirectTo:'home', pathMatch: 'full'}
   // Add more routes as needed
 ];
 

@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { selectCartItemCount } from '../../store/cart/cart.selectors';
@@ -10,22 +10,23 @@ import { CartComponent } from "../cart/cart.component";
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule, CartComponent],
+  imports: [RouterLink, CommonModule, FormsModule, CartComponent , RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
   cartItemCount$: Observable<number>;
   isScrolled: boolean = false;
-
-  // Search input and category dropdown state
   selectedCategory:string = '';
   searchQuery:string = '';
-
-  // Predefined product categories
   categories: string[] = ['Electronics', 'Beauty and Cosmetics', 'Clothing and Fashion'];
 
-isCartSidebarOpen = false;
+  isCartSidebarOpen = false;
+  menus = [
+    { label: 'Home', path: '/home' },
+    { label: 'Shopping', path: '/products' },
+    { label: 'My Orders', path: '/orders' }
+  ];
 
 openCartSidebar() {
   this.isCartSidebarOpen = true;
