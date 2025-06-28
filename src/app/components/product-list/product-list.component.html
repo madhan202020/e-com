@@ -1,0 +1,156 @@
+
+<div class="w3-content w-full max-h-96">
+    <img *ngFor="let image of sliderImages(); let i = index" [src]="image" class="mySlides"
+        style="width:100%; display: none;">
+</div>
+<!-- Also Like Section -->
+<section class="bg-slate-200 pb-12 pt-20">
+  <div class="container mx-auto px-4">
+    <!-- Title -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-gray-800 sm:text-4xl md:text-5xl">You may also like</h2>
+      <span class="mt-4 block mx-auto h-[3px] w-[100px] bg-pink-500"></span>
+      <p class="mt-4 text-base text-gray-600 max-w-xl mx-auto">
+        There are many variations of women's dresses available, carefully curated for your style.
+      </p>
+    </div>
+
+    <!-- Product Grid -->
+   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+  <div
+    *ngFor="let product of productsList; let i = index"
+    class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl animate-fade-in-up"
+    [ngClass]="'delay-' + (i * 100)"
+  >
+    <img class="w-full h-64 object-cover" [src]="product.img" [alt]="product.name" />
+    <div class="p-4 text-center">
+      <h3 class="text-lg font-semibold text-gray-800">{{ product.name }}</h3>
+      <p class="text-pink-500 font-bold mt-2">${{ product.price }}</p>
+    </div>
+  </div>
+</div>
+
+  </div>
+</section>
+
+<!-- Hero Section with Products -->
+
+  
+  <!-- Shop By Category Section -->
+  <section class="bg-slate-200 pb-12 pt-20 lg:pb-[90px] lg:pt-[120px]">
+    <div class="container mx-auto">
+      <!-- Title -->
+      <div class="-mx-4 flex">
+        <div class="w-full px-4">
+          <div class="mx-auto mb-[60px] max-w-[510px] text-center">
+            <h2 class="mb-4 text-3xl font-bold leading-[1.2] text-dark sm:text-4xl md:text-[40px]">
+              Shop By Category
+            </h2>
+            <p class="text-base text-body-color">
+              There are many variations of passages of Lorem Ipsum available but the majority have suffered alteration.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Categories -->
+      <div class="-mx-4 flex flex-wrap">
+        <!-- Category 1 -->
+        <div class="w-full px-4 sm:w-1/2 lg:w-1/4">
+          <a href="javascript:void(0)" class="group mb-10 block text-center">
+            <div class="mb-5 overflow-hidden rounded-lg">
+              <img src="/images/categories/image-01.jpg" alt="category" class="w-full">
+            </div>
+            <h3 class="mb-1 text-xl font-semibold text-dark group-hover:text-primary md:text-2xl">
+              Accessories
+            </h3>
+            <p class="text-base text-body-color">8 Products Available</p>
+          </a>
+        </div>
+        <!-- Category 2 -->
+        <div class="w-full px-4 sm:w-1/2 lg:w-1/4">
+          <a href="javascript:void(0)" class="group mb-10 block text-center">
+            <div class="mb-5 overflow-hidden rounded-lg">
+              <img src="/images/categories/image-02.jpg" alt="category" class="w-full">
+            </div>
+            <h3 class="mb-1 text-xl font-semibold text-dark group-hover:text-primary md:text-2xl">
+              Bags
+            </h3>
+            <p class="text-base text-body-color">4 Products Available</p>
+          </a>
+        </div>
+        <!-- Category 3 -->
+        <div class="w-full px-4 sm:w-1/2 lg:w-1/4">
+          <a href="javascript:void(0)" class="group mb-10 block text-center">
+            <div class="mb-5 overflow-hidden rounded-lg">
+              <img src="/images/categories/image-03.jpg" alt="category" class="w-full">
+            </div>
+            <h3 class="mb-1 text-xl font-semibold text-dark group-hover:text-primary md:text-2xl">
+              Electronics
+            </h3>
+            <p class="text-base text-body-color">12 Products Available</p>
+          </a>
+        </div>
+        <!-- Category 4 -->
+        <div class="w-full px-4 sm:w-1/2 lg:w-1/4">
+          <a href="javascript:void(0)" class="group mb-10 block text-center">
+            <div class="mb-5 overflow-hidden rounded-lg">
+              <img src="/images/categories/image-04.jpg" alt="category" class="w-full">
+            </div>
+            <h3 class="mb-1 text-xl font-semibold text-dark group-hover:text-primary md:text-2xl">
+              Shoes
+            </h3>
+            <p class="text-base text-body-color">24 Products Available</p>
+          </a>
+        </div>
+      </div>
+      <!-- Explore More Button -->
+      <div class="mt-10 text-center">
+        <a href="javascript:void(0)"
+          class="unique-Btn-Style inline-flex items-center justify-center rounded-md px-7 py-[13px] text-center text-base font-medium text-white hover:bg-blue-dark">
+          Explore All Categories
+        </a>
+      </div>
+    </div>
+  </section>
+  
+
+<div *ngIf="products().length > 0; else loading">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+        <div *ngFor="let product of products() let i = index" class="bg-white shadow-md rounded-lg p-4">
+            <a [routerLink]="['/product', product.id]">
+                <img [src]="product.imageUrl" alt="" class="w-full h-32 object-cover rounded-lg">
+            </a>
+            <h3 class="text-lg font-semibold mt-2">{{product.name}}</h3>
+            <p class="text-gray-600">{{product.description}}</p>
+            <div class="text-blue-600 font-bold mt-2">{{product.price | currency:'INR':'symbol' }}</div>
+            <div class="flex flex-col md:flex-row gap-2">
+                <a [routerLink]="['/product', product.id]">
+                    <button type="button" class="mt-4 unique-Btn-Style px-4 py-2 min-w-[140px] max-w-full">View
+                        Details</button>
+                </a>
+                <button (click)="toggleWishlist(i); addToWishlist(product)"
+                    class="flex items-center gap-2 mt-4 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full shadow hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-red-400 transition whitespace-nowrap min-w-[140px] max-w-full">
+                    <!-- Heart Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" [class.text-red-500]="likedProducts[i]"
+                        [class.fill-red-500]="likedProducts[i]" [class.text-gray-600]="!likedProducts[i]"
+                        [class.fill-none]="!likedProducts[i]" class="h-5 w-5 mr-2 transition" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41.81 4.5 2.09C12.09 4.81 13.76 4 15.5 4 18 4 20 6 20 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                    <!-- Button Text -->
+                    <span>{{ likedProducts[i] ? 'Wishlisted' : 'Wishlist' }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <ng-template #loading>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
+            <div *ngFor="let _ of [1, 2, 3, 4]" class="bg-white shadow-md rounded-lg p-4 animate-pulse">
+                <div class="w-full h-32 bg-gray-300 rounded-lg"></div>
+                <div class="mt-2 h-4 bg-gray-300 rounded w-3/4"></div>
+                <div class="mt-1 h-3 bg-gray-300 rounded w-2/4"></div>
+                <div class="mt-2 h-4 bg-gray-300 rounded w-1/4"></div>
+            </div>
+        </div>
+    </ng-template>

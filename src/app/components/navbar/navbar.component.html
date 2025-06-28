@@ -1,0 +1,118 @@
+<!-- Navbar -->
+<nav 
+  [ngClass]="{
+    'bg-white shadow-md': isScrolled,
+    'bg-transparent': !isScrolled
+  }"
+  class="sticky top-0 z-50 transition-all duration-300 px-4 py-3 flex justify-between items-center"
+>
+
+  <!-- Logo -->
+  <a routerLink="/products" class="flex items-center space-x-2">
+    <img src="shophub-logo-resized.png" alt="ShopHub" class="h-10 w-auto" />
+    <span class="text-2xl font-bold text-violet-600">ShopHub</span>
+  </a>
+
+  <!-- Desktop -->
+  <div class="hidden md:flex items-center space-x-6 flex-1 ml-8">
+
+    <!-- Category Dropdown -->
+    <select 
+      [(ngModel)]="selectedCategory"
+      class="w-1/5 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
+    >
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+    </select>
+
+    <!-- Search Bar -->
+    <div class="relative flex-1">
+      <input 
+        [(ngModel)]="searchQuery"
+        type="text"
+        placeholder="Search products..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-md pr-10 focus:outline-none focus:ring-2 focus:ring-violet-500 text-sm"
+        (keydown.enter)="onSearch()"
+      />
+      <span 
+        class="material-icons absolute right-3 top-2.5 text-gray-500 cursor-pointer" 
+        (click)="onSearch()"
+      >
+        search
+      </span>
+    </div>
+
+    <!-- Links -->
+    <div class="flex items-center space-x-6 text-sm font-medium text-gray-700">
+
+      <!-- Cart -->
+      <a routerLink="/cart" class="relative group">
+        <span class="material-icons group-hover:text-violet-600">shopping_cart</span>
+        <span class="block text-center group-hover:text-violet-600 transition">Cart</span>
+        <span 
+          *ngIf="(cartItemCount$ | async) as count" 
+          class="absolute -top-1 -right-2 bg-violet-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center"
+        >
+          {{ count }}
+        </span>
+      </a>
+
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" class="group">
+        <span class="material-icons group-hover:text-violet-600">favorite</span>
+        <span class="block text-center group-hover:text-violet-600 transition">Wishlist</span>
+      </a>
+
+      <!-- Profile Dropdown -->
+      <div class="relative group cursor-pointer">
+        <div class="flex flex-col items-center group-hover:text-violet-600">
+          <span class="material-icons">person</span>
+          <span class="text-sm">Profile</span>
+        </div>
+        <div
+          class="absolute top-12 right-0 hidden group-hover:flex flex-col bg-white border border-gray-300 rounded-md shadow-lg w-44 z-50"
+        >
+          <a routerLink="/profile" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Profile</a>
+          <a routerLink="/profile/edit" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Edit Profile</a>
+          <a routerLink="/orders" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Orders</a>
+          <button (click)="onLogout()" class="text-left w-full px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile -->
+  <div class="flex md:hidden items-center w-full space-x-2 mt-2">
+    <div class="flex items-center bg-gray-100 px-3 py-2 rounded-md w-full">
+      <input 
+        [(ngModel)]="searchQuery"
+        type="text"
+        placeholder="Search..."
+        class="w-full bg-transparent border-none focus:outline-none text-sm"
+        (keydown.enter)="onSearch()"
+      />
+      <span class="material-icons text-gray-500 cursor-pointer" (click)="onSearch()">search</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Bottom Sticky Navigation (Mobile Only) -->
+<div class="fixed bottom-0 left-0 right-0 bg-white shadow-md flex justify-around py-3 md:hidden z-50 border-t border-gray-200">
+  <a routerLink="/cart" class="relative text-gray-600 hover:text-violet-600">
+    <span class="material-icons">shopping_cart</span>
+    <span 
+      *ngIf="(cartItemCount$ | async) as count" 
+      class="absolute -top-1 -right-2 bg-violet-600 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center"
+    >
+      {{ count }}
+    </span>
+  </a>
+  <a routerLink="/wishlist" class="text-gray-600 hover:text-violet-600">
+    <span class="material-icons">favorite</span>
+  </a>
+  <a routerLink="/profile" class="text-gray-600 hover:text-violet-600">
+    <span class="material-icons">person</span>
+  </a>
+</div>
