@@ -10,6 +10,7 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { wishlistReducer } from './store/wishlist/wishlist.reducer';
 import { ProfileComponent } from './components/profile/profile.component';
 import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import { HomeComponent } from './pages/home/home.component';
 
 const routes: Route[] = [
   { path: 'products', component: ProductListComponent },
@@ -19,6 +20,7 @@ const routes: Route[] = [
   { path: 'wishlist', component: WishlistComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'profile/edit', component: EditProfileComponent },
+  {path:'home',component:HomeComponent},
   { path: '**', redirectTo:'products', pathMatch: 'full'}
   // Add more routes as needed
 ];
@@ -27,6 +29,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore({ cart: cartReducer, wishlist: wishlistReducer  })
+    provideStore({ cart: cartReducer, wishlist: wishlistReducer  }),
   ]
 };

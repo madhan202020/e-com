@@ -1,0 +1,53 @@
+<div class="relative w-full h-[500px] overflow-hidden font-serif">
+
+  <!-- 5 Clipped Panels -->
+  <ng-container *ngFor="let image of images; let i = index">
+    <div
+      class="absolute top-0 h-full w-[20%] overflow-hidden animate-fade-in"
+      [ngStyle]="{
+        left: (i * 20) + '%',
+        'clip-path': 'polygon(13% 0, 100% 0, 87% 100%, 0% 100%)',
+        'z-index': 10 - i
+      }"
+    >
+      <img
+        [src]="image"
+        alt="model"
+        class="w-full h-full object-cover object-center scale-105 transition-transform duration-700 hover:scale-110"
+      />
+    </div>
+  </ng-container>
+
+  <!-- Center Banner -->
+  <div class="absolute inset-0 flex items-center justify-center z-20">
+    <div class="bg-[#03163b]/90 px-10 py-5">
+      <h1
+        class="text-4xl md:text-5xl text-[#e3c87c] tracking-[0.2em] uppercase animate-fade-in"
+      >
+        Your Perfect Fit Awaits
+      </h1>
+    </div>
+  </div>
+
+  <!-- Arrow Icon -->
+  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-30 animate-bounce">
+    <svg
+      class="w-6 h-6 text-white"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </div>
+</div>
+
+<div>
+  <app-product-list-slider
+   [title]="'New Arrivals'"
+  [products]="products"
+  [viewAllUrl]="'/new-arrivals'"
+  ></app-product-list-slider>
+</div>

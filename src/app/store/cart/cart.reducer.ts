@@ -13,21 +13,23 @@ function loadCartFromLocalStorage(): CartState {
 
 export const cartReducer = createReducer(
   loadCartFromLocalStorage(),
-  on(addToCart, (state, { item }) => {
-    const existingItem = state.items.find((i) => i.id === item.id);
-    const updatedCart = existingItem
-      ? {
-          ...state,
-          items: state.items.map((i) =>
-            i.id === item.id
-              ? { ...i, quantity: i.quantity + item.quantity }
-              : i
-          ),
-        }
-      : { ...state, items: [...state.items, item] };
-    saveCartToLocalStorage(updatedCart);
-    return updatedCart;
-  }),
+ on(addToCart, (state, { item }) => {
+  const existingItem = state.items.find((i) => i.id === item.id);
+
+  const updatedCart = existingItem
+    ? {
+        ...state,
+        items: state.items.map((i) =>
+          i.id === item.id
+            ? { ...i, quantity: i.quantity + item.quantity }
+            : i
+        ),
+      }
+    : { ...state, items: [...state.items, item] };
+
+  saveCartToLocalStorage(updatedCart);
+  return updatedCart;
+}),
   on(removeFromCart, (state, { id }) => {
     const updatedCart = {
       ...state,

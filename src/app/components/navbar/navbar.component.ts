@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { selectCartItemCount } from '../../store/cart/cart.selectors';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CartComponent } from "../cart/cart.component";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule, CartComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
@@ -23,6 +24,16 @@ export class NavbarComponent {
 
   // Predefined product categories
   categories: string[] = ['Electronics', 'Beauty and Cosmetics', 'Clothing and Fashion'];
+
+isCartSidebarOpen = false;
+
+openCartSidebar() {
+  this.isCartSidebarOpen = true;
+}
+
+closeCartSidebar() {
+  this.isCartSidebarOpen = false;
+}
 
   constructor(private store: Store, private router: Router){
     this.cartItemCount$ = this.store.select(selectCartItemCount);
@@ -47,5 +58,5 @@ export class NavbarComponent {
     console.log('User logged out');
     this.router.navigate(['/login']);
   }
-  
+
 }

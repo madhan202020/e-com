@@ -1,7 +1,8 @@
 import { ProductInterface } from "../../models/product.model";
 
 export interface CartItem extends ProductInterface {
-    quantity: number; // To track quantity for each product in the cart
+    quantity: number;
+    image?:string; // To track quantity for each product in the cart
 }
 
 export interface CartState {

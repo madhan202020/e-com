@@ -1,25 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartItem } from '../../store/cart/cart.state';
 import { Store } from '@ngrx/store';
 import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selectors';
 import { clearCart, removeFromCart } from '../../store/cart/cart.actions';
 import { CommonModule } from '@angular/common';
+import { EmptyCartComponent } from "../empty-cart/empty-cart.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, EmptyCartComponent],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  cartItems$!: Observable<CartItem[]>;
-  total$!: Observable<number>;
+ cartItems$: Observable<CartItem[]>;
+
+  cartTotal$: Observable<number>;
+   @Input() isOpen = false;
+  @Output() close = new EventEmitter<void>();
+
+
 
   constructor(private store: Store){
-    this.cartItems$ = this.store.select(selectCartItems);
-    this.total$ = this.store.select(selectCartTotal);
+     this.cartItems$ = this.store.select(selectCartItems);
+
+    this.cartTotal$ = this.store.select(selectCartTotal);
   }
 
   removeFromCart(id: string):void {
@@ -28,6 +35,10 @@ export class CartComponent {
 
   clearCart():void {
     this.store.dispatch(clearCart());
+  }
+
+   onClose() {
+    this.close.emit();
   }
 
 }
