@@ -6,6 +6,7 @@ import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector
 import { clearCart, removeFromCart } from '../../store/cart/cart.actions';
 import { CommonModule } from '@angular/common';
 import { EmptyCartComponent } from "../empty-cart/empty-cart.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +24,7 @@ export class CartComponent {
 
 
 
-  constructor(private store: Store){
+  constructor(private store: Store,private router:Router){
      this.cartItems$ = this.store.select(selectCartItems);
 
     this.cartTotal$ = this.store.select(selectCartTotal);
@@ -39,6 +40,11 @@ export class CartComponent {
 
    onClose() {
     this.close.emit();
+  }
+
+  prodectDetails(event:any){
+ this.router.navigate(['product/'+event.id])
+ this.onClose()
   }
 
 }

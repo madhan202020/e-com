@@ -28,31 +28,67 @@ images = [
     id: 'prod-1',
     name: 'Twilight Blossom Printed Co-ord Set',
     price: 2000,
-    image: 'images/dress/dress2.jpg'
+    image: 'images/dress/dress2.jpg',
+    rating: 4.5,
+    shortDescription: 'High-quality material, trendy design, and durable build.',
+   
+    originalPrice: 6999,
+     offer: "30", // Percentage off for ribbon
+  
+  
+
   },
   {
     id: 'prod-2',
     name: 'Scarlet Red Alia Cut Printed Co-ord Set',
     price: 2500,
-    image: 'images/dress/dress2.jpg'
+    image: 'images/dress/dress2.jpg',
+     rating: 4.5,
+    shortDescription: 'High-quality material, trendy design, and durable build.',
+   
+     originalPrice: 2999,
+     offer: "30", // Percentage off for ribbon
+  
+  
   },
   {
     id: 'prod-3',
     name: 'Coral Orange Cotton Suit Set with Kota Dupatta',
     price: 2500,
-    image: 'images/dress/dress2.jpg'
+    image: 'images/dress/dress2.jpg',
+     rating: 4.5,
+    shortDescription: 'High-quality material, trendy design, and durable build.',
+   
+     originalPrice: 9999,
+     offer: "30", // Percentage off for ribbon
+  
+  
   },
   {
     id: 'prod-4',
     name: 'Shoulder Cut Halter Neck Light ',
     price: 2500,
-    image: 'images/dress/dress2.jpg'
+    image: 'images/dress/dress2.jpg',
+     rating: 4.5,
+    shortDescription: 'High-quality material, trendy design, and durable build.',
+   
+     originalPrice: 4999,
+     offer: "30", // Percentage off for ribbon
+  
+  
   },
     {
       id: 'prod-5',
     name: 'Shoulder Cut Halter Neck Light ',
     price: 2500,
-    image: 'images/dress/dress2.jpg'
+    image: 'images/dress/dress2.jpg',
+     rating: 4.5,
+    shortDescription: 'High-quality material, trendy design, and durable build.',
+   
+     originalPrice: 6999,
+     offer: "30", // Percentage off for ribbon
+  
+  
   }
 ];
 

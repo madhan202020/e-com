@@ -41,4 +41,11 @@ export class ProductListSliderComponent  {
   this.store.dispatch(addToCart({ item: cartItem }));
 }
 
+calculateDiscount(original: number, current: number): number {
+  return Math.round(((original - current) / original) * 100);
+}
+prodectDetailsView(event:any){
+ this.router.navigate(['/product/'+event.id])
+}
+
 }

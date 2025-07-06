@@ -1,8 +1,18 @@
 
 <div class="w3-content w-full max-h-96">
     <img *ngFor="let image of sliderImages(); let i = index" [src]="image" class="mySlides"
-        style="width:100%; display: none;">
+        style="width:100%; display: none;"/>
+        
 </div>
+   <!-- <lottie-player 
+src="https://cdn.lottielab.com/l/EZndd8WSsYS7Ri.json"
+  background="transparent"
+  speed="1"
+  style="width: 300px; height: 300px;"
+  loop
+  autoplay>
+</lottie-player> -->
+<!-- <spline-viewer url="https://prod.spline.design/0TBTVdudITsXpfPc/scene.splinecode"></spline-viewer> -->
 <!-- Also Like Section -->
 <section class="bg-slate-200 pb-12 pt-20">
   <div class="container mx-auto px-4">
@@ -16,19 +26,55 @@
     </div>
 
     <!-- Product Grid -->
-   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-  <div
-    *ngFor="let product of productsList; let i = index"
-    class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl animate-fade-in-up"
-    [ngClass]="'delay-' + (i * 100)"
-  >
-    <img class="w-full h-64 object-cover" [src]="product.img" [alt]="product.name" />
-    <div class="p-4 text-center">
-      <h3 class="text-lg font-semibold text-gray-800">{{ product.name }}</h3>
-      <p class="text-pink-500 font-bold mt-2">${{ product.price }}</p>
+  <div *ngIf="loading" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+  <div *ngFor="let dummy of skeletonArray" class="animate-pulse bg-gray-100 rounded-xl h-[320px]"></div>
+</div>
+
+<!-- Product List -->
+<div *ngIf="!loadingPro" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+ <div
+  *ngFor="let product of products(); let i = index"
+  class="bg-white rounded-xl shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl animate-fade-in-up"
+  [ngClass]="'delay-' + (i * 100)"
+>
+  <!-- Product Image -->
+  <img  class="w-full h-64 object-cover " [src]="product.image" [alt]="product.name" />
+
+  <!-- Product Details -->
+  <div class="p-4 flex flex-col justify-between h-auto space-y-3 hover:cursor-pointer" (click)="prodectDetailsView(product)">
+    
+    <!-- Product Name -->
+    <h3 class="text-lg font-semibold text-gray-800 text-center">{{ product.name }}</h3>
+
+    <!-- Price and Offer -->
+    <div class="flex flex-col items-center space-y-1">
+      <p *ngIf="product.originalPrice" class="text-sm text-gray-400 line-through">
+        Rs. {{ product.originalPrice | number }}
+      </p>
+      <p class="text-base font-bold text-gray-800">
+        Rs. {{ product.price | number }}
+        <span *ngIf="product.offer" class="text-xs text-red-500 ml-1">(Save {{ calculateDiscount(product.originalPrice, product.price) }}%)</span>
+      </p>
     </div>
+
+    <!-- Rating -->
+    <div class="flex justify-center items-center space-x-1">
+      <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+        <svg *ngIf="i < product.rating" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-amber-500 fill-current" viewBox="0 0 20 20">
+          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z" />
+        </svg>
+        <svg *ngIf="i >= product.rating" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-300 fill-current" viewBox="0 0 20 20">
+          <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.564-.955L10 0l2.948 5.955 6.564.955-4.756 4.635 1.122 6.545z" />
+        </svg>
+      </ng-container>
+      <span class="ml-2 text-sm text-gray-500">({{ product.rating }})</span>
+    </div>
+
   </div>
 </div>
+
+</div>
+
 
   </div>
 </section>
@@ -118,7 +164,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-4">
         <div *ngFor="let product of products() let i = index" class="bg-white shadow-md rounded-lg p-4">
             <a [routerLink]="['/product', product.id]">
-                <img [src]="product.imageUrl" alt="" class="w-full h-32 object-cover rounded-lg">
+                <img [src]="product.image" alt="" class="w-full h-32 object-cover rounded-lg">
             </a>
             <h3 class="text-lg font-semibold mt-2">{{product.name}}</h3>
             <p class="text-gray-600">{{product.description}}</p>

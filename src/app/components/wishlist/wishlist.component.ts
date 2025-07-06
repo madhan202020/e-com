@@ -6,11 +6,19 @@ import { removeFromWishlist } from '../../store/wishlist/wishlist.actions';
 import { Observable } from 'rxjs';
 
 interface WishlistItem {
-  id: string;
+ id: string;
   name: string;
-  description: string;
+  description?: string;
+  category?: string;
+  brand?: string;
   price: number;
   imageUrl: string;
+
+  // Add frontend-specific fields if needed
+  rating: number;
+  shortDescription?: string;
+  originalPrice: number;
+  offer?: string;
 }
 
 @Component({
