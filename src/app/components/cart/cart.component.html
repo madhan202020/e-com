@@ -1,0 +1,97 @@
+<!-- Backdrop -->
+<div
+  class="fixed inset-0 bg-gray-500/75 transition-opacity z-40"
+  *ngIf="isOpen"
+  (click)="onClose()"
+  aria-hidden="true">
+</div>
+
+<!-- Sidebar container -->
+<div class="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+  <div class="absolute inset-y-0 right-0 max-w-full flex">
+    <div
+      class="w-screen max-w-md pointer-events-auto bg-white shadow-xl transition-transform duration-500 ease-in-out transform"
+      [ngClass]="{
+        'translate-x-0': isOpen,
+        'translate-x-full': !isOpen
+      }"
+    >
+      <div class="flex h-full flex-col overflow-y-auto">
+        <!-- Header -->
+        <div class="flex items-start justify-between px-4 py-6 sm:px-6">
+          <h2 class="text-lg font-medium text-gray-900">Shopping cart</h2>
+          <button (click)="onClose()" class="text-gray-400 hover:text-gray-500">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Cart items -->
+     <!-- Cart items -->
+<div class="flex-1 px-4 sm:px-6">
+  <ng-container *ngIf="(cartItems$ | async) as cartItems">
+    <ng-container *ngIf="cartItems.length > 0; else emptyCart">
+      <ul class="-my-6 divide-y divide-gray-200">
+        <li class="flex py-6" *ngFor="let item of cartItems">
+          <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border hover:cursor-pointer border-gray-200" (click)="prodectDetails(item)">
+            <img
+              [src]="item.image"
+              alt="Product"
+              class="h-full w-full object-cover object-center"
+            />
+          </div>
+          <div class="ml-4 flex flex-1 flex-col">
+            <div>
+              <div class="flex justify-between text-base font-medium text-gray-900">
+                <h3>{{ item.name }}</h3>
+                <p class="ml-4">${{ item.price }}</p>
+              </div>
+              <p class="mt-1 text-sm text-gray-500">{{ item.description }}</p>
+            </div>
+            <div class="flex flex-1 items-end justify-between text-sm">
+              <p class="text-gray-500">Qty {{ item.quantity }}</p>
+              <div class="flex">
+                <button (click)="removeFromCart(item.id)" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </ng-container>
+
+    <!-- Empty cart message -->
+    <ng-template #emptyCart>
+      <app-empty-cart [className]="'w-full'" [text]="'Your cart is empty!'"></app-empty-cart>
+    </ng-template>
+  </ng-container>
+</div>
+
+
+        <!-- Footer -->
+         <ng-container *ngIf="(cartItems$ | async) as cartItems">
+    <ng-container *ngIf="cartItems.length > 0;">
+        <div class="border-t border-gray-200 px-4 py-6 sm:px-6" >
+          <div class="flex justify-between text-base font-medium text-gray-900">
+            <p>Subtotal</p>
+            <p>${{ cartTotal$ | async }}</p>
+          </div>
+          <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+          <div class="mt-6">
+            <a href="#" class="flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-base font-medium text-white hover:bg-indigo-700">
+              Checkout
+            </a>
+          </div>
+          <div class="mt-6 flex justify-center text-sm text-gray-500">
+            <p>
+              or <button (click)="onClose()" class="font-medium text-indigo-600 hover:text-indigo-500">Continue Shopping →</button>
+            </p>
+          </div>
+        </div>
+    </ng-container>
+         </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

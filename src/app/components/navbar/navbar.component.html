@@ -1,0 +1,119 @@
+<!-- Navbar -->
+<!-- Navbar -->
+<nav
+  [ngClass]="{
+    'bg-white shadow-md': isScrolled,
+    'bg-transparent': !isScrolled
+  }"
+  class="sticky top-0 z-50 transition-all duration-300 px-4 py-3 flex justify-between items-center"
+>
+  <!-- Logo -->
+  <a routerLink="/home" class="flex items-center space-x-2">
+    <span class="text-2xl font-bold text-violet-600">ShopHub</span>
+  </a>
+
+  <!-- Menu (Centered) -->
+  <ul class="hidden md:flex space-x-10 justify-center flex-1 text-sm font-medium text-gray-700">
+    <li
+      *ngFor="let menu of menus"
+      routerLinkActive="text-[primary]"
+      [routerLink]="menu.path"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="hover:text-[--primary] transition-colors cursor-pointer text-[15px]"
+    >
+      <a>{{ menu.label }}</a>
+    </li>
+  </ul>
+
+  <!-- Icons Section (Right Side) -->
+  <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-700">
+    <!-- Cart -->
+    <a class="relative group cursor-pointer" (click)="openCartSidebar()">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+           stroke-width="1.5" stroke="currentColor"
+           class="mt-1 sm:h-6 sm:w-6 h-6 w-6">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218
+                 c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6
+                 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+      </svg>
+      <span
+        *ngIf="(cartItemCount$ | async) as count"
+        class="absolute -top-1 -right-2 bg-red-500 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center">
+        {{ count }}
+      </span>
+    </a>
+
+    <!-- Wishlist -->
+    <a routerLink="/wishlist" class="group cursor-pointer">
+      <i class="fa-regular fa-heart text-[20px]"></i>
+    </a>
+
+    <!-- Profile Dropdown -->
+    <div class="relative group cursor-pointer">
+      <div class="flex flex-col items-center">
+        <i class="fa-regular fa-user text-[20px]"></i>
+      </div>
+      <div
+        class="absolute top-12 right-0 hidden group-hover:flex flex-col bg-white border border-gray-300 rounded-md shadow-lg w-44 z-50"
+      >
+        <a routerLink="/profile" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Profile</a>
+        <a routerLink="/profile/edit" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Edit Profile</a>
+        <a routerLink="/orders" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Orders</a>
+        <button (click)="onLogout()" class="text-left w-full px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile search removed -->
+  <!-- Cart Sidebar Component -->
+  <app-cart [isOpen]="isCartSidebarOpen" (close)="closeCartSidebar()"></app-cart>
+</nav>
+
+
+<!-- Bottom Sticky Navigation (Mobile Only) -->
+<div class="fixed bottom-0 left-0 right-0 bg-white shadow-md flex justify-around py-3 md:hidden z-50 border-t border-gray-200">
+<a class="relative group cursor-pointer" (click)="openCartSidebar()">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+       stroke-width="1.5" stroke="currentColor"
+       class="mt-1 sm:h-6 sm:w-6 h-6 w-6">
+    <path stroke-linecap="round" stroke-linejoin="round"
+          d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218
+             c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6
+             20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+  </svg>
+
+  <span
+    *ngIf="(cartItemCount$ | async) as count"
+    class="absolute -top-1 -right-2 bg-red-500 text-white text-xs h-5 w-5 rounded-full flex items-center justify-center">
+    {{ count }}
+  </span>
+</a>
+
+
+
+
+      <!-- Wishlist -->
+      <a routerLink="/wishlist" class="group cursor-pointer">
+       <i class="fa-regular fa-heart text-[20px]"></i>
+      </a>
+
+      <!-- Profile Dropdown -->
+      <div class="relative group cursor-pointer">
+        <div class="flex flex-col items-center">
+         <i class="fa-regular fa-user text-[20px]"></i>
+        </div>
+        <div
+          class="absolute top-12 right-0 hidden group-hover:flex flex-col bg-white border border-gray-300 rounded-md shadow-lg w-44 z-50"
+        >
+          <a routerLink="/profile" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Profile</a>
+          <a routerLink="/profile/edit" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Edit Profile</a>
+          <a routerLink="/orders" class="px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">Orders</a>
+          <button (click)="onLogout()" class="text-left w-full px-4 py-2 hover:bg-gray-100 text-gray-700 text-sm">
+            Logout
+          </button>
+        </div>
+      </div>
+</div>
